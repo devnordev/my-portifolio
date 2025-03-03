@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-gray-900 text-gray-100
+  }
+}
+
+.container {
+  @apply mx-auto w-full max-w-[1200px] px-6
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #374151;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #10b981;
+  border-radius: 14px;
+}
+
+@layer base {
+  :root {
+    /* Definindo as variáveis CSS */
+    --font-sans: 'var(--font-inter)', sans-serif;
+    --font-mono: 'var(--font-plex-mono)', monospace;
+    --hero-image: url('/images/hero-bg.png');
+  }
+}
+@layer utilities {
+  /* Utilitário para a imagem de fundo */
+  .bg-hero-image {
+    background-image: var(--hero-image);
+  }
+
+  /* Utilitário para a fonte monospace */
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Utilitário para a sombra do botão */
+  .shadow-button {
+    box-shadow: 0px 0px 68px 7px rgba(5, 150, 105, 0.4);
+  }
+}
