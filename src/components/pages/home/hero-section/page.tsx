@@ -1,26 +1,18 @@
 'use client'
 import { Button } from "@/components/button/page"
+import { CMSIcon } from "@/components/cms-icons/page"
+import { RichText } from "@/components/rich-text/page"
 import { TechBadge } from "@/components/tech-badge/page"
+import { HomePageInfo } from "@/types/page-info"
 import Image from "next/image"
 import {HiArrowNarrowRight} from 'react-icons/hi'
-import {TbBrandGithub, TbBrandLinkedin, TbBrandYoutube, TbBrandWhatsapp} from 'react-icons/tb'
 
-const MOCK_CONTACTS = [
-    {   url: 'https://github.com.br',
-        icon: <TbBrandGithub/>,
-    },
-    {   url: 'https://github.com.br',
-        icon: <TbBrandLinkedin/>,
-    },
-    {   url: 'https://github.com.br',
-        icon: <TbBrandYoutube/>,
-    },
-    {   url: 'https://github.com.br',
-        icon: <TbBrandWhatsapp/>,
-    },
-]
 
-export const HeroSection = () => {
+type HeroSectionProps = {
+    homeInfo: HomePageInfo
+}
+
+export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
     const handleContact = () => {
         const contactSection = document.querySelector('#contact');
         if(contactSection){
@@ -37,10 +29,12 @@ export const HeroSection = () => {
                     <p className="text-emerald-400 font-mono">Olá, meu nome é</p>
                     <h2 className="text-4xl font-medium mt-2">Hugo Ferreira</h2>
 
-                    <p className="text-gray-400 my-6 text-sm sm:text-base">Olá, meu nome é Hugo Ferreira e sou um porgramador front-end apaixonado por tecnologia. Com mais de 3 anos de experiência. Meu objetivo é criar interfaces de usuário bonitas e funcionais, além de liderar equipes técnicas em projetos desafiadores. Estou sempre aberto a novas oportunidades e desafios.</p>
+                    <div className="text-gray-400 my-6 text-sm sm:text-base">
+                        <RichText content={homeInfo.introduction.raw}/>
+                    </div>
                     <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-                        {Array.from({length: 10}).map((_, index) => (
-                            <TechBadge key={index} name="teste"/>
+                        {homeInfo.technologies.map((tech) => (
+                            <TechBadge key={tech.name} name={tech.name}/>
                         ))}
                     </div>
                     <div className="mt-6 lg:mt-10 flex sm:items-center sm:gap-5 sm:flex-row flex-col">
@@ -49,14 +43,14 @@ export const HeroSection = () => {
                             <HiArrowNarrowRight size={18}/>
                         </Button>
                         <div className="text-gray-600 flex items-center h-20 gap-3">
-                            {MOCK_CONTACTS.map((contact, index) => (
+                            {homeInfo.social.map((contact, index) => (
                                 <a 
                                     href={contact.url} 
                                     key={`contact-${index}`} 
                                     target="_blank" 
                                     className="hover:text-gray-100 transition-colors"
                                 >
-                                    {contact.icon}
+                                    <CMSIcon icon={contact.iconSvg}/>
                                 </a>
                             ))}
                         </div>
@@ -66,7 +60,7 @@ export const HeroSection = () => {
                     width={420}
                     height={404}
                     alt="Foto de perfil do Hugo Ferreira"
-                    src="/images/profile-pic.png"
+                    src={homeInfo.profilePicture.url}
                     className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
                 />
             </div>

@@ -2,15 +2,15 @@ import type { NextConfig } from "next";
 
 module.exports = {
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'media.graphassets.com',
-        port: '',
-        pathname: '/**',
+        hostname: '**.graphassets.com',
       },
-    ],
-  },
+     ]
+    },
+
 }
 
 const nextConfig: NextConfig = {
